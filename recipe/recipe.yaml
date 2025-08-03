@@ -29,6 +29,9 @@ requirements:
         - ${{ compiler('c') }}
         - ${{ compiler('cxx') }}
         - ${{ stdlib('c') }}
+        - if: target_platform == "linux-aarch64"
+          then:
+            - ${{ c_stdlib }}_${{ target_platform }} >= ${{ c_stdlib_version }}
         - coreutils
         - sed
         - tar
