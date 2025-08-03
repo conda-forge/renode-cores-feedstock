@@ -1,6 +1,6 @@
 context:
   name: renode-cores
-  version: "1.15.3"
+  version: "1.16.0"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://github.com/renode/renode/releases/download/v${{ version }}/renode_${{ version }}_source.tar.xz
-    sha256: 40c50afe8db86a9c63f4a86b93116a6babd43bf241cfaac47b2c0d2cbc2b15a8
+    sha256: dab46e73d07a3b1bf2c1cec2c615a37ab85d734dda448296dcdf39c4f7c9451a
   - url: https://github.com/renode/renode-infrastructure/archive/3fc2d5fe643068e595e875d9408cb4329522b229.tar.gz
     sha256: ca93909b693a9550b44c32902f36e87208fa02cd3a46ecbaaeb4185f48ed1390
     target_directory: cmake-renode-infrastructure
@@ -17,7 +17,7 @@ source:
     target_directory: cmake-tlib
 
 build:
-  number: 1
+  number: 0
   skip: ppc64le
 
 requirements:
