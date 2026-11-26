@@ -47,6 +47,16 @@ requirements:
         - m2-tar
 
 tests:
+  - requirements:
+      run:
+        - python
+    files:
+      recipe:
+        - test_core_arch.py
+    script:
+      content: python test_core_arch.py
+      env:
+        EXPECTED_PLATFORM: ${{ target_platform }}
   - package_contents:
       files:
         - ${{ "Library/bin/" if not unix else "lib/" }}renode-cores/translate-arm-be.so
@@ -79,8 +89,8 @@ about:
   license: MIT
   license_file:
     - LICENSE
-    - tlib-LICENSE
-    - softfloat-3-COPYING.txt
+    - cmake-tlib/LICENSE
+    - src/Infrastructure/src/Emulator/Cores/tlib/softfloat-3/COPYING.txt
   documentation: https://renode.io/
   repository: https://github.com/renode/renode
 
