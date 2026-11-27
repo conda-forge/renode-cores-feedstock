@@ -2,14 +2,11 @@
 
 set -o xtrace -o nounset -o pipefail -o errexit
 
-# Update CMakeLists.txt and copy license files
+# Update CMakeLists.txt
 cp "cmake-renode-infrastructure/src/Emulator/Cores/CMakeLists.txt" "${SRC_DIR}/src/Infrastructure/src/Emulator/Cores/CMakeLists.txt"
 
 cp cmake-tlib/CMakeLists.txt "${SRC_DIR}/src/Infrastructure/src/Emulator/Cores/tlib"
 cp cmake-tlib/tcg/CMakeLists.txt "${SRC_DIR}/src/Infrastructure/src/Emulator/Cores/tlib/tcg"
-
-cp cmake-tlib/LICENSE "${RECIPE_DIR}/tlib-LICENSE"
-cp "${SRC_DIR}/src/Infrastructure/src/Emulator/Cores/tlib/softfloat-3/COPYING.txt" "${RECIPE_DIR}/softfloat-3-COPYING.txt"
 
 export CFLAGS="${CFLAGS} -Wno-unknown-warning-option"
 export CFLAGS="${CFLAGS} -I${SRC_DIR}/src/Infrastructure/src/Emulator/Cores/tlib/tcg"
@@ -17,6 +14,9 @@ export CXXFLAGS="${CXXFLAGS} -Wno-unknown-warning-option"
 
 if [[ "${target_platform}" == "linux-aarch64" ]]; then
     export CMAKE_ARGS="-DHOST_ARCH=aarch64 ${CMAKE_ARGS}"
+fi
+if [[ "${target_platform}" == "linux-64" || "${target_platform}" == "osx-64" ]]; then
+    export CMAKE_ARGS="-DHOST_ARCH=i386 ${CMAKE_ARGS}"
 fi
 if [[ "${target_platform}" == "osx-arm64" ]]; then
     export CMAKE_ARGS="-DCMAKE_OSX_ARCHITECTURES=arm64 ${CMAKE_ARGS}"

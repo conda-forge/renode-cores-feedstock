@@ -1,6 +1,6 @@
 context:
   name: renode-cores
-  version: "1.16.1"
+  version: "1.17.1"
 
 package:
   name: ${{ name|lower }}
@@ -8,7 +8,7 @@ package:
 
 source:
   - url: https://github.com/renode/renode/releases/download/v${{ version }}/renode_${{ version }}_source.tar.xz
-    sha256: fefe9a495cb54af09f13a93a863b6cad027f7ddc8854921efa6e42d9fbcd9888
+    sha256: e361d45b7e7ffa68f714b5bccacd40709896c617cf037540cad3f6ae5fa25a81
   - url: https://github.com/renode/renode-infrastructure/archive/3fc2d5fe643068e595e875d9408cb4329522b229.tar.gz
     sha256: ca93909b693a9550b44c32902f36e87208fa02cd3a46ecbaaeb4185f48ed1390
     target_directory: cmake-renode-infrastructure
@@ -47,6 +47,16 @@ requirements:
         - m2-tar
 
 tests:
+  - requirements:
+      run:
+        - python
+    files:
+      recipe:
+        - test_core_arch.py
+    script:
+      content: python test_core_arch.py
+      env:
+        EXPECTED_PLATFORM: ${{ target_platform }}
   - package_contents:
       files:
         - ${{ "Library/bin/" if not unix else "lib/" }}renode-cores/translate-arm-be.so
@@ -79,8 +89,8 @@ about:
   license: MIT
   license_file:
     - LICENSE
-    - tlib-LICENSE
-    - softfloat-3-COPYING.txt
+    - cmake-tlib/LICENSE
+    - src/Infrastructure/src/Emulator/Cores/tlib/softfloat-3/COPYING.txt
   documentation: https://renode.io/
   repository: https://github.com/renode/renode
 
